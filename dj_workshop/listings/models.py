@@ -11,7 +11,7 @@ class Listing(models.Model):
     desc = models.CharField(max_length=150, verbose_name='Description')
     price = models.IntegerField()
     bedrooms = models.IntegerField()
-    # bathrooms = models.IntegerField()
+    bathrooms = models.IntegerField()
     garage = models.BooleanField()
     sqft = models.IntegerField()
     lot_size = models.DecimalField(decimal_places=2, max_digits=5)

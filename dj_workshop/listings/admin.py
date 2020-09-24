@@ -4,4 +4,4 @@ from .models import Listing
 
 # Register your models here.
 
-admin.site.register(Listing)
+admin.site.register(Listing)   #link up with Admin

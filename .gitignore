@@ -6,4 +6,4 @@ __pycache__/
 test_env1
 .idea
 db.sqlite3
-db.sqlite3-journal
+# db.sqlite3-journal  [jodi thakto tahola ditam na github a tai comment out korci]
