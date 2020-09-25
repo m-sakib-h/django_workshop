@@ -37,7 +37,7 @@
         <div class="container">
             <div class="row">
 
-                <!-- Listing -->
+                <!-- Listing 1-->
                 {% if listing_list %}
                     {% for listing in listing_list %}
                         <div class="col-md-6 col-lg-4 mb-4">
@@ -88,7 +88,7 @@
                     <h3 class="text-center">No listing Available </h3>
                 {% endif %}
 
-                <!-- End Listing -->
+                <!-- End Listing 1-->
             </div>
             {#<h3>{{ listing_list }}</h3>#}
 
@@ -99,7 +99,7 @@
                             {% if listing_list.has_previous %}
                                 <li class="page-item">
                                     <a class="page-link"
-                                       href="?page={{ listing_list.previous_page_number }}">&laquo;</a>
+                                       href="?page={{ listing_list.previous_page_number}}">&laquo;</a>
                                 </li>
                             {% else %}
                                 <li class="page-item disabled">
