@@ -1,1 +1,131 @@
-<h1> This is SEARCH </h1>
+{#<h1> This is SEARCH </h1>#}
+
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block title %} Search | {{ block.super }}{% endblock %}
+
+{% block content %}
+    	<!-- Showcase -->
+      <section id="showcase-inner" class="showcase-search text-white py-5">
+        <div class="container">
+          <div class="row text-center">
+            <div class="col-md-12">
+              {% include 'listings/search_form.html' %}
+            </div>
+          </div>
+        </div>
+      </section>
+
+    <!-- Listings -->
+    <section id="listings" class="py-4">
+        <div class="container">
+            <div class="row">
+
+                <!-- Listing 1-->
+                {% if listing_list %}
+                    {% for listing in listing_list %}
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card listing-preview">
+                                <img class="card-img-top" src="{{ listing.photo_main.url }}" alt="">
+                                <div class="card-img-overlay">
+                                    <h2>
+                                        <span class="badge badge-danger text-white">BDT {{ listing.price | intcomma }} </span>
+                                    </h2>
+                                </div>
+                                <div class="card-body">
+                                    <div class="listing-heading text-center">
+                                        <h4 class="text-primary">{{ listing.title }}</h4>
+                                        <p>
+                                            <i class="fas fa-map-marker text-danger"></i> {{ listing.address }} </p>
+                                    </div>
+                                    <hr>
+                                    <div class="row py-2 text-danger">
+                                        <div class="col-6">
+                                            <i class="fas fa-th-large"></i> {{ listing.sqft | intcomma }} </div>
+                                        <div class="col-6">
+                                            <i class="fas fa-car"></i> {{ listing.garage }} </div>
+                                    </div>
+                                    <div class="row py-2 text-danger">
+                                        <div class="col-6">
+                                            <i class="fas fa-bed"></i> {{ listing.bedrooms }} </div>
+                                        <div class="col-6">
+                                            <i class="fas fa-bath"></i> {{ listing.bathrooms }}</div>
+                                    </div>
+                                    <hr>
+                                    <div class="row py-2 text-danger">
+                                        <div class="col-12">
+                                            <i class="fas fa-user"></i> {{ listing.realtor }} </div>
+                                    </div>
+                                    <div class="row text-danger pb-2">
+                                        <div class="col-6">
+                                            <i class="fas fa-clock"></i> {{ listing.list_date | timesince }} ago
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <a href="{% url 'listing' listing.id %}" class="btn btn-info btn-block">More
+                                        Info</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h3 class="text-center">No listing Available </h3>
+                {% endif %}
+
+                <!-- End Listing 1-->
+            </div>
+            {#<h3>{{ listing_list }}</h3>#}
+
+
+            <!-- Page Numbering -->
+            <div class="row">
+                <div class="col-md-12">
+                    {% if listing_list.has_other_pages %}
+                        <ul class="pagination">
+                            {% if listing_list.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       href="?page={{ listing_list.previous_page_number}}">&laquo;</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link">&laquo;</a>
+                                </li>
+                            {% endif %}
+
+
+                            {% for i in listing_list.paginator.page_range %}
+                                {% if listing_list.number == i %}       <!--Here number contains the selected number or default set number-->
+                                    <li class="page-item active">
+                                        <a class="page-link">{{ i }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                                        {#  <a class="page-link" href="?p={{ i }}">{{ i }}</a> #}
+                                        {# [eikhana p dila views a p dita hoba, eikhana ja dibo views eo tai dibo] #}
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+
+
+                            {% if listing_list.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ listing_list.next_page_number }}">&raquo;</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link">&raquo;</a>
+                                </li>
+                            {% endif %}
+
+                        </ul>
+                    {% endif %}
+
+                </div>
+            </div>
+            <!-- End Page Numbering -->
+        </div>
+    </section>
+{% endblock %}
